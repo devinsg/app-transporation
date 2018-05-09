@@ -13,7 +13,7 @@ export default class App extends React.Component {
 
         <Text>Hello world !</Text>
         <Text>First React-Native-App !</Text>
-        <Text>CopyRight 2017 - Author: Vo Duy Anh</Text>
+        <Text>CopyRight@2017 - Author: Vo Duy Anh</Text>
       </View>
     );
   }
