@@ -47,6 +47,18 @@ const styles = StyleSheet.create({
 class Login extends Component {
     constructor(props){
       super(props);
+      this.state = {
+          username: '',
+          password: ''
+      }
+    }
+
+    onChangeUserName(value) {
+        this.setState({ username: value });
+    }
+
+    onChangePassword(value) {
+        this.setState({ password: value });
     }
 
     render() {
@@ -54,8 +66,8 @@ class Login extends Component {
         <View style={styles.container}>
             <Image style={styles.logo} source={logo} />
             <Text style={styles.heading}>Github browser</Text>
-            <TextInput style={styles.input} placeholder='Github username' />
-            <TextInput style={styles.input} placeholder='Github password' secureTextEntry={true} />
+            <TextInput style={styles.input} placeholder='Github username' onChangeText={(value) => this.onChangeUserName(value)} />
+            <TextInput style={styles.input} placeholder='Github password' secureTextEntry={true} onChangeText={(value) => this.onChangePassword(value)}/>
             <TouchableHighlight style={styles.button}>
                 <Text style={styles.buttonText}> Log In </Text>
             </TouchableHighlight>
