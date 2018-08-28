@@ -80,45 +80,15 @@ class Login extends Component {
             username: this.state.username, 
             password: this.state.password 
         }, (result) => {
-            if(!result.success)
+            if(!result.success){
                 this.setState({ error: result.error });
-            console.log(result);
+            }
+            else{
+                console.log(result);
+                this.setState({ error: result.error });
+            }
             this.setState({ showProgress: false });
         });
-
-        // let encodeAuthenticate = new buffer.Buffer(username + ':' + password).toString('base64');
-
-        // fetch('https://api.github.com/user',{
-        //     headers: {
-        //         'Authorization': 'Basic ' + encodeAuthenticate
-        //     }
-        // })
-        // .then((response) => {
-        //     if(response.status >= 200 && response.status < 300) {
-        //         return response;
-        //     }
-            
-        //     throw {
-        //         badCredentials: response.status == 401,
-        //         unknowError: response.status != 401
-        //     }
-        // })
-        // .then((response) => {
-        //     return response.json();
-        // })
-        // .then((result) => {
-        //     console.log(result);
-        //     this.setState({ error: null });
-        //     this.setState({ showProgress: false });
-        // })
-        // .catch((error) => {
-        //     console.log('logon failed:', error);
-        //     this.setState({ error: error });
-        //     this.setState({ showProgress: false });
-        // })
-        // .finally(() => {
-        //     this.setState({ showProgress: false });
-        // });
     }
 
     render() {
