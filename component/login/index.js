@@ -74,11 +74,11 @@ class Login extends Component {
     }
 
     onLoginPressed() {
-        let { username, password } = this.state;
         this.setState({ showProgress: true });
+
         authService.login({ 
-            username: username, 
-            password: password 
+            username: this.state.username, 
+            password: this.state.password 
         }, (result) => {
             if(!result.success)
                 this.setState({ error: result.error });
