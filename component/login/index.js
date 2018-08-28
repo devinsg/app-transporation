@@ -45,6 +45,10 @@ const styles = StyleSheet.create({
     },
     loader: {
         marginTop: 20
+    },
+    error: {
+        color: 'red',
+        paddingTop: 10
     }
 });
 
@@ -54,7 +58,8 @@ class Login extends Component {
       this.state = {
           username: '',
           password: '',
-          showProgress: false
+          showProgress: false,
+          error: null
       }
     }
 
@@ -81,11 +86,10 @@ class Login extends Component {
             if(response.status >= 200 && response.status < 300) {
                 return response;
             }
-            else if([401,403].indexOf(response.status)>=0) {
-                throw 'bad credentials';
-            }
-            else {
-                throw 'unknow error';
+            
+            throw {
+                badCredentials: response.status == 401,
+                unknowError: response.status != 401
             }
         })
         .then((response) => {
@@ -93,10 +97,13 @@ class Login extends Component {
         })
         .then((result) => {
             console.log(result);
+            this.setState({ error: null });
             this.setState({ showProgress: false });
         })
-        .catch((error) =>{
+        .catch((error) => {
             console.log('logon failed:', error);
+            this.setState({ error: error });
+            this.setState({ showProgress: false });
         })
         .finally(() => {
             this.setState({ showProgress: false });
@@ -104,20 +111,30 @@ class Login extends Component {
     }
 
     render() {
-      return (
-        <View style={styles.container}>
-            <Image style={styles.logo} source={logo} />
-            <Text style={styles.heading}>Github browser</Text>
-            <TextInput style={styles.input} placeholder='Github username' onChangeText={(value) => this.onChangeUserName(value)} autoCapitalize='none'/> 
-            <TextInput style={styles.input} placeholder='Github password' secureTextEntry={true} onChangeText={(value) => this.onChangePassword(value)}/>
-            <TouchableHighlight style={styles.button} onPress={this.onLoginPressed.bind(this)}>
-                <Text style={styles.buttonText}>Log In</Text>
-            </TouchableHighlight>
+        let errorCtrl = <View />;
+        if(this.state.error && this.state.error.badCredentials){
+            errorCtrl = <Text style={styles.error}>username and password is invalid</Text>
+        }
+        else if(this.state.error && this.state.error.unknowError){
+            errorCtrl = <Text style={styles.error}>unexpected result</Text>
+        }
 
-            <ActivityIndicator animating={this.state.showProgress} size='large' style={styles.loader}>
-            </ActivityIndicator>
-        </View>
-      );
+        return (
+            <View style={styles.container}>
+                <Image style={styles.logo} source={logo} />
+                <Text style={styles.heading}>Github browser</Text>
+                <TextInput style={styles.input} placeholder='Github username' onChangeText={(value) => this.onChangeUserName(value)} autoCapitalize='none'/> 
+                <TextInput style={styles.input} placeholder='Github password' secureTextEntry={true} onChangeText={(value) => this.onChangePassword(value)}/>
+                <TouchableHighlight style={styles.button} onPress={this.onLoginPressed.bind(this)}>
+                    <Text style={styles.buttonText}>Log In</Text>
+                </TouchableHighlight>
+                
+                {errorCtrl}
+
+                <ActivityIndicator animating={this.state.showProgress} size='large' style={styles.loader}>
+                </ActivityIndicator>
+            </View>
+        );
     }
   };
   
