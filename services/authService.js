@@ -1,6 +1,22 @@
 const buffer = require('buffer');
+const AsyncStorage = require('react-native').AsyncStorage;
+
+const authKey = 'authKey';
+const userKey = 'userKey';
 
 class authService {
+    getAuthInfo(callback) {
+        AsyncStorage.multiGet([authKey, userKey], (err, val) => {
+            if(err) 
+                throw err;
+            
+            if(!val)
+                return callback();
+
+            return val;
+        });
+    }
+
     login(credentials, callback){
         let encodeAuth = new buffer.Buffer(credentials.username + ':' + credentials.password).toString('base64');
 
@@ -22,7 +38,13 @@ class authService {
             return response.json();
         })
         .then((result) => {
-            return callback({ success: true, data: result });
+            AsyncStorage.multiSet([
+                [authKey, encodeAuth],
+                [userKey, JSON.stringify(result)]
+            ], (err) => {
+                if(err) throw err;
+                return callback({ success: true });
+            });
         })
         .catch((error) => {
             return callback({ success: false, error: error });
