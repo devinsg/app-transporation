@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, StyleSheet, ActivityIndicator } from 'react-native';
-//import Sample from './component/sample';
+import { AppRegistry, Text, View, ActivityIndicator } from 'react-native';
 import Login from './component/login';
 import AuthService from './services/authService';
 import styles from './Styles';
