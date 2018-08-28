@@ -1,29 +1,15 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, AppRegistry } from 'react-native';
+import Sample from './component/sample';
+import Login from './component/login';
 
-export default class App extends React.Component {
+class App extends Component {
   render() {
-    let pic = {
-      uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'
-    };
-
+    //let author = 'James Bond 007';
     return (
-      <View style={styles.container}>
-        <Image source={pic} style={{width: 193, height: 110}}/>
-
-        <Text>Hello world !</Text>
-        <Text>First React-Native-App !</Text>
-        <Text>CopyRight@2017 - Author: Vo Duy Anh</Text>
-      </View>
+      //<Sample author={author}/>
+      <Login />
     );
   }
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
