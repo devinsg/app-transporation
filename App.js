@@ -24,6 +24,7 @@ class App extends Component{
       checkingAuth: true
     }
     this.onLogin = this.onLogin.bind(this);
+    this.onLogout = this.onLogout.bind(this);
   }
 
   componentDidMount(){
@@ -38,6 +39,10 @@ class App extends Component{
   
   onLogin(){
     this.setState({ isLoggedIn: true });
+  }
+
+  onLogout(){
+    this.setState({ isLoggedIn: false });
   }
 
   render(){
@@ -60,7 +65,7 @@ class App extends Component{
       return (
         <View style={styles.container}>
           <Text>Welcome { authInfo.user ? authInfo.user.name : ''}</Text>
-          <Text>Logout</Text>
+          <Text onPress={this.onLogout}>Logout</Text>
         </View>
       );
     }
