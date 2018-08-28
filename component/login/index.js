@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
 class Login extends Component {
     constructor(props){
       super(props);
+
       this.state = {
           username: '',
           password: '',
@@ -80,14 +81,13 @@ class Login extends Component {
             username: this.state.username, 
             password: this.state.password 
         }, (result) => {
-            if(!result.success){
+            if(!result.success) {
                 this.setState({ error: result.error });
+                this.setState({ showProgress: false });
             }
-            else{
-                console.log(result);
-                this.setState({ error: result.error });
+            else {
+                this.props.onLogin();
             }
-            this.setState({ showProgress: false });
         });
     }
 
@@ -120,6 +120,7 @@ class Login extends Component {
   };
   
   Login.propTypes = {
+    onLogin: PropTypes.func
   };
   
   export default Login;
