@@ -60,6 +60,7 @@ class App extends Component{
       return (
         <View style={styles.container}>
           <Text>Welcome { authInfo.user ? authInfo.user.name : ''}</Text>
+          <Text>Logout</Text>
         </View>
       );
     }
