@@ -37,7 +37,6 @@ class App extends Component{
 
   render(){
     let { isLoggedIn, checkingAuth, authInfo } = this.state;
-
     if(checkingAuth) {
       return (
         <View style={styles.container}>
@@ -54,10 +53,6 @@ class App extends Component{
     else if(isLoggedIn) {
       return (
         <Container authInfo={authInfo} onLogout={this.onLogout} />
-        // <View style={styles.container}>
-        //   <Text>Welcome { authInfo.user ? authInfo.user.name : ''}</Text>
-        //   <Text onPress={this.onLogout}>Logout</Text>
-        // </View>
       );
     }
   }
