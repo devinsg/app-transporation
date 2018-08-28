@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { AppRegistry, Text, View, TextInput, Image, StyleSheet, TouchableHighlight, ActivityIndicator } from 'react-native';
+import buffer from 'buffer';
 
 const logo = require('../../images/master.png');
 const styles = StyleSheet.create({
@@ -69,7 +70,37 @@ class Login extends Component {
     onLoginPressed() {
         let { username, password } = this.state;
         this.setState({ showProgress: true });
-        console.log(username, password);
+        let encodeAuthenticate = new buffer.Buffer(username + ':' + password).toString('base64');
+
+        fetch('https://api.github.com/user',{
+            headers: {
+                'Authorization': 'Basic ' + encodeAuthenticate
+            }
+        })
+        .then((response) => {
+            if(response.status >= 200 && response.status < 300) {
+                return response;
+            }
+            else if([401,403].indexOf(response.status)>=0) {
+                throw 'bad credentials';
+            }
+            else {
+                throw 'unknow error';
+            }
+        })
+        .then((response) => {
+            return response.json();
+        })
+        .then((result) => {
+            console.log(result);
+            this.setState({ showProgress: false });
+        })
+        .catch((error) =>{
+            console.log('logon failed:', error);
+        })
+        .finally(() => {
+            this.setState({ showProgress: false });
+        });
     }
 
     render() {
