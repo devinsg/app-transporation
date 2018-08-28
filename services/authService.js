@@ -13,7 +13,17 @@ class authService {
             if(!val)
                 return callback();
 
-            return val;
+            let zippedObject = {};
+            val.forEach(v => {
+                zippedObject[v[0]] = v[1];
+            });
+            let authInfo = {
+                header: {
+                    Authorization: 'Basic ' + zippedObject[authKey]
+                },
+                user: JSON.parse(zippedObject[userKey])
+            }
+            return callback(null, authInfo);
         });
     }
 

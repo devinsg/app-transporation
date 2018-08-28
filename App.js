@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, StyleSheet } from 'react-native';
+import { AppRegistry, Text, View, StyleSheet, ActivityIndicator } from 'react-native';
 //import Sample from './component/sample';
 import Login from './component/login';
+import AuthService from './services/authService';
 
 const styles = StyleSheet.create({
   container: {
@@ -9,6 +10,8 @@ const styles = StyleSheet.create({
       flex: 1,
       paddingTop: 40,
       alignItems: 'center'
+  },
+  loader: {
   }
 });
 
@@ -17,9 +20,20 @@ class App extends Component{
     super(props);
 
     this.state = {
-      isLoggedIn: false 
+      isLoggedIn: false,
+      checkingAuth: true
     }
     this.onLogin = this.onLogin.bind(this);
+  }
+
+  componentDidMount(){
+    AuthService.getAuthInfo((error, authInfo) => {
+      this.setState({
+        checkingAuth: false,
+        isLoggedIn: (authInfo == null || authInfo == undefined) ? false : true,
+        authInfo: authInfo
+      })
+    });
   }
   
   onLogin(){
@@ -27,16 +41,25 @@ class App extends Component{
   }
 
   render(){
-    let { isLoggedIn } = this.state;
-    if(isLoggedIn == null || !isLoggedIn){
+    let { isLoggedIn, checkingAuth, authInfo } = this.state;
+
+    if(checkingAuth) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator animating={true} size='large' style={styles.loader}>
+          </ActivityIndicator>
+        </View>
+      );
+    }
+    else if(isLoggedIn == null || !isLoggedIn) {
       return (
         <Login onLogin={this.onLogin} />
       );
     }
-    else{
+    else if(isLoggedIn) {
       return (
         <View style={styles.container}>
-          <Text>Welcome Home</Text>
+          <Text>Welcome { authInfo.user ? authInfo.user.name : ''}</Text>
         </View>
       );
     }
