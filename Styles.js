@@ -2,17 +2,16 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#F5FCFF',
         flex: 1,
-        paddingTop: 40,
+        backgroundColor: '#F5FCFF',
         alignItems: 'center',
         justifyContent: 'center'
     },
     loginContainer: {
-        backgroundColor: '#F5FCFF',
         flex: 1,
-        paddingTop: 40,
-        alignItems: 'center'
+        backgroundColor: '#F5FCFF',
+        alignItems: 'center',
+        paddingTop: 40
     },
     logo: {
         width: 66,
@@ -25,7 +24,12 @@ const styles = StyleSheet.create({
     welcome: {
         fontSize: 20,
         textAlign: 'center',
-        margin: 10
+        paddingTop: 60
+    },
+    instructions: {
+        textAlign: 'center',
+        color: '#333333',
+        marginBottom: 5
     },
     input: {
         height: 50,
