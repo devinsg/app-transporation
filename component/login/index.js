@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { AppRegistry, Text, View, TextInput, Image, StyleSheet, TouchableHighlight } from 'react-native';
+import { AppRegistry, Text, View, TextInput, Image, StyleSheet, TouchableHighlight, ActivityIndicator } from 'react-native';
 
 const logo = require('../../images/master.png');
 const styles = StyleSheet.create({
@@ -41,6 +41,9 @@ const styles = StyleSheet.create({
         fontSize: 22,
         color: '#FFF',
         alignSelf: 'center'
+    },
+    loader: {
+        marginTop: 20
     }
 });
 
@@ -49,11 +52,13 @@ class Login extends Component {
       super(props);
       this.state = {
           username: '',
-          password: ''
+          password: '',
+          showProgress: false
       }
     }
 
     onChangeUserName(value) {
+        //TextInput: autoCapitalize enum('none', 'sentences', 'words', 'characters')
         this.setState({ username: value });
     }
 
@@ -61,16 +66,25 @@ class Login extends Component {
         this.setState({ password: value });
     }
 
+    onLoginPressed() {
+        let { username, password } = this.state;
+        this.setState({ showProgress: true });
+        console.log(username, password);
+    }
+
     render() {
       return (
         <View style={styles.container}>
             <Image style={styles.logo} source={logo} />
             <Text style={styles.heading}>Github browser</Text>
-            <TextInput style={styles.input} placeholder='Github username' onChangeText={(value) => this.onChangeUserName(value)} />
+            <TextInput style={styles.input} placeholder='Github username' onChangeText={(value) => this.onChangeUserName(value)} autoCapitalize='none'/> 
             <TextInput style={styles.input} placeholder='Github password' secureTextEntry={true} onChangeText={(value) => this.onChangePassword(value)}/>
-            <TouchableHighlight style={styles.button}>
-                <Text style={styles.buttonText}> Log In </Text>
+            <TouchableHighlight style={styles.button} onPress={this.onLoginPressed.bind(this)}>
+                <Text style={styles.buttonText}>Log In</Text>
             </TouchableHighlight>
+
+            <ActivityIndicator animating={this.state.showProgress} size='large' style={styles.loader}>
+            </ActivityIndicator>
         </View>
       );
     }
