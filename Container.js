@@ -22,8 +22,8 @@ class Container extends Component {
                     title='Feed' 
                     selected={this.state.selectedTab == 'feed'} 
                     onPress={() => this.setState({selectedTab: 'feed'})}>
-                        {/* <Feed /> */}
-                    <Welcome authInfo={authInfo} onLogout={onLogout}/>
+                        <Feed />
+                    {/* <Welcome authInfo={authInfo} onLogout={onLogout}/> */}
                 </TabBarIOS.Item>
                 <TabBarIOS.Item 
                     title='Search' 

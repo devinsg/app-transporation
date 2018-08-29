@@ -44,20 +44,31 @@ class Feed extends Component {
     renderRow(rowData, sectionID, rowID){
         return (
             <View style={{ 
-                    flex: 1, 
-                    flexDirection: 'row', 
-                    padding: 20, 
-                    alignItems: 'center', 
-                    borderColor: '#D7D7D7',
-                     borderBottomWidth: 1
+                flex: 1, 
+                flexDirection: 'row', 
+                padding: 20, 
+                alignItems: 'center', 
+                borderColor: '#D7D7D7',
+                borderBottomWidth: 1
             }}>
-                <Image source={{ uri: rowData.actor.avatar_url }}
-                    style={{ height: 36, width: 36, borderRadius: 18 }}>
+
+                <Image  source={{ uri: rowData.actor.avatar_url }}
+                        style={{ height: 36, width: 36, borderRadius: 18 }}>
                 </Image>
+
                 <View style={{ paddingLeft: 20 }}>
-                    <Text style={{ backgroundColor: '#FFF' }}>{moment(rowData.create_at).fromNow()}</Text>
-                    <Text style={{ backgroundColor: '#FFF' }}>{rowData.actor.login}</Text>
-                    <Text style={{ backgroundColor: '#FFF' }}>{rowData.payload.ref.replace('refs/heads/','')}</Text>
+                    <Text style={{ backgroundColor: '#FFF' }}>
+                        {moment(rowData.create_at).fromNow()}
+                    </Text>
+                    <Text style={{ backgroundColor: '#FFF' }}>
+                        <Text style={{ fontWeight: '600' }}>{rowData.actor.login}</Text> push to 
+                    </Text>
+                    <Text style={{ backgroundColor: '#FFF' }}>
+                        {rowData.payload.ref.replace('refs/heads/','')}
+                    </Text>
+                    <Text style={{ backgroundColor: '#FFF' }}>
+                        at <Text style={{ fontWeight: '600' }}>{rowData.repo.name}</Text>
+                    </Text>
                 </View>
             </View>
         )
@@ -76,7 +87,7 @@ class Feed extends Component {
                 flex: 1,
                 justifyContent: 'flex-start',
                 backgroundColor: '#FFF',
-                alignSelf: 'center',
+                //alignSelf: 'center',
                 paddingTop: 60
             }}>
                 <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this)} />
