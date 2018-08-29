@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { AppRegistry, Text, View, TabBarIOS } from 'react-native';
 import styles from './Styles';
+import Feed from './component/feed';
+import Search from './component/search';
+import Welcome from './component/welcome';
 
 class Container extends Component {
     constructor(props){
@@ -12,24 +15,21 @@ class Container extends Component {
     }
 
     render() {
-        //let { authInfo, onLogout } = this.props;
+        let { authInfo, onLogout } = this.props;
         return (
-            // <View style={styles.container}>
-            //     <Text>Welcome { authInfo.user ? authInfo.user.name : ''}</Text>
-            //     <Text onPress={() => onLogout()}>Logout</Text>
-            // </View>
             <TabBarIOS style={styles.container}>
                 <TabBarIOS.Item 
                     title='Feed' 
                     selected={this.state.selectedTab == 'feed'} 
                     onPress={() => this.setState({selectedTab: 'feed'})}>
-                        <Text style={styles.welcome}>Tab Feed</Text>
+                        <Feed />
+                    {/* <Welcome authInfo={authInfo} onLogout={onLogout}/> */}
                 </TabBarIOS.Item>
                 <TabBarIOS.Item 
                     title='Search' 
                     selected={this.state.selectedTab == 'search'} 
                     onPress={() => this.setState({selectedTab: 'search'})}>
-                        <Text style={styles.welcome}>Tab Search</Text>
+                        <Search />
                 </TabBarIOS.Item>
             </TabBarIOS>
         )
