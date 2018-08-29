@@ -9,6 +9,7 @@ class Welcome extends Component {
     }
 
     render() {
+        let { authInfo, onLogout } = this.props;
         return (
             <View style={styles.container}>
                 <Text>Welcome { authInfo.user ? authInfo.user.name : ''}</Text>
