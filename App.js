@@ -1,19 +1,9 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, StyleSheet, ActivityIndicator } from 'react-native';
-//import Sample from './component/sample';
+import { AppRegistry, Text, View, ActivityIndicator } from 'react-native';
 import Login from './component/login';
 import AuthService from './services/authService';
-
-const styles = StyleSheet.create({
-  container: {
-      backgroundColor: '#F5FCFF',
-      flex: 1,
-      paddingTop: 40,
-      alignItems: 'center'
-  },
-  loader: {
-  }
-});
+import styles from './Styles';
+import Container from './Container';
 
 class App extends Component{
   constructor(props){
@@ -47,7 +37,6 @@ class App extends Component{
 
   render(){
     let { isLoggedIn, checkingAuth, authInfo } = this.state;
-
     if(checkingAuth) {
       return (
         <View style={styles.container}>
@@ -63,10 +52,7 @@ class App extends Component{
     }
     else if(isLoggedIn) {
       return (
-        <View style={styles.container}>
-          <Text>Welcome { authInfo.user ? authInfo.user.name : ''}</Text>
-          <Text onPress={this.onLogout}>Logout</Text>
-        </View>
+        <Container authInfo={authInfo} onLogout={this.onLogout} />
       );
     }
   }
