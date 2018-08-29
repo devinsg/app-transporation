@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { AppRegistry, Text, View, TabBarIOS } from 'react-native';
+import { AppRegistry, Text, View, TabBarIOS, NavigatorIOS } from 'react-native';
 import styles from './Styles';
 import Feed from './component/feed';
 import Search from './component/search';
@@ -22,8 +22,9 @@ class Container extends Component {
                     title='Feed' 
                     selected={this.state.selectedTab == 'feed'} 
                     onPress={() => this.setState({selectedTab: 'feed'})}>
-                        <Feed />
-                    {/* <Welcome authInfo={authInfo} onLogout={onLogout}/> */}
+                        <NavigatorIOS style={{ flex: 1 }} initialRoute={{ component: Feed, title: 'Feed' }}></NavigatorIOS>
+                        {/* <Feed /> */}
+                        {/* <Welcome authInfo={authInfo} onLogout={onLogout}/> */}
                 </TabBarIOS.Item>
                 <TabBarIOS.Item 
                     title='Search' 

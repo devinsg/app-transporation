@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ListView, View, Text, Image, AppRegistry, ActivityIndicator } from 'react-native';
+import { ListView, View, Text, Image, AppRegistry, ActivityIndicator, TouchableHighlight } from 'react-native';
 import _ from 'lodash';
 import moment from 'moment';
 import styles from '../../Styles';
 import authService from '../../services/authService';
+import FeedDetail from '../feedDetail';
 
 class Feed extends Component {
     constructor(props) {
@@ -22,6 +23,16 @@ class Feed extends Component {
 
     componentDidMount(){
         this.fetchFeed();
+    }
+
+    pressRow(rowData){
+        this.props.navigator.push({
+            title: 'Push Event',
+            component: FeedDetail,
+            passProps: {
+                pushEvent: rowData
+            }
+        });
     }
 
     fetchFeed(){
@@ -43,34 +54,36 @@ class Feed extends Component {
 
     renderRow(rowData, sectionID, rowID){
         return (
-            <View style={{ 
-                flex: 1, 
-                flexDirection: 'row', 
-                padding: 20, 
-                alignItems: 'center', 
-                borderColor: '#D7D7D7',
-                borderBottomWidth: 1
-            }}>
+            <TouchableHighlight onPress={() => this.pressRow(rowData)} underlayColor='#ddd'>
+                <View style={{ 
+                    flex: 1, 
+                    flexDirection: 'row', 
+                    padding: 20,
+                    alignItems: 'center', 
+                    borderColor: '#D7D7D7',
+                    borderBottomWidth: 1
+                }}>
 
-                <Image  source={{ uri: rowData.actor.avatar_url }}
-                        style={{ height: 36, width: 36, borderRadius: 18 }}>
-                </Image>
+                    <Image  source={{ uri: rowData.actor.avatar_url }}
+                            style={{ height: 36, width: 36, borderRadius: 18 }}>
+                    </Image>
 
-                <View style={{ paddingLeft: 20 }}>
-                    <Text style={{ backgroundColor: '#FFF' }}>
-                        {moment(rowData.create_at).fromNow()}
-                    </Text>
-                    <Text style={{ backgroundColor: '#FFF' }}>
-                        <Text style={{ fontWeight: '600' }}>{rowData.actor.login}</Text> push to 
-                    </Text>
-                    <Text style={{ backgroundColor: '#FFF' }}>
-                        {rowData.payload.ref.replace('refs/heads/','')}
-                    </Text>
-                    <Text style={{ backgroundColor: '#FFF' }}>
-                        at <Text style={{ fontWeight: '600' }}>{rowData.repo.name}</Text>
-                    </Text>
+                    <View style={{ paddingLeft: 20 }}>
+                        <Text style={{ backgroundColor: '#FFF' }}>
+                            {moment(rowData.create_at).fromNow()}
+                        </Text>
+                        <Text style={{ backgroundColor: '#FFF' }}>
+                            <Text style={{ fontWeight: '600' }}>{rowData.actor.login}</Text> push to 
+                        </Text>
+                        <Text style={{ backgroundColor: '#FFF' }}>
+                            {rowData.payload.ref.replace('refs/heads/','')}
+                        </Text>
+                        <Text style={{ backgroundColor: '#FFF' }}>
+                            at <Text style={{ fontWeight: '600' }}>{rowData.repo.name}</Text>
+                        </Text>
+                    </View>
                 </View>
-            </View>
+            </TouchableHighlight>
         )
     }
 
@@ -88,7 +101,7 @@ class Feed extends Component {
                 justifyContent: 'flex-start',
                 backgroundColor: '#FFF',
                 //alignSelf: 'center',
-                paddingTop: 60
+                paddingTop: 80
             }}>
                 <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this)} />
             </View>

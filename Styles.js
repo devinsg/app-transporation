@@ -31,6 +31,10 @@ const styles = StyleSheet.create({
         color: '#333333',
         marginBottom: 5
     },
+    text_bold: {
+        fontWeight: '700',
+        fontSize: 20
+    },
     input: {
         height: 50,
         width: 300,
