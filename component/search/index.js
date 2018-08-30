@@ -14,19 +14,26 @@ class Search extends Component {
     }
 
     onSearchPressed(){
-        this.props.navigator.push({
-            title: 'Search Result',
-            component: SearchResult,
-            passProps: {
-                searchQuery: this.state.searchQuery
-            }
-        });
+        if(this.state.searchQuery && this.state.searchQuery != ''){
+            this.props.navigator.push({
+                title: 'Search Result',
+                component: SearchResult,
+                passProps: {
+                    searchQuery: this.state.searchQuery
+                }
+            });
+        }
     }
 
     render() {
         return (
             <View style={styles.searchContainer}>
-                <TextInput style={styles.input} onChangeText={(value) => { this.setState({ searchQuery: value }) } } placeholder='enter keyword'></TextInput>
+                <TextInput  style={styles.input} 
+                            onChangeText={(value) => { this.setState({ searchQuery: value }) } } 
+                            placeholder='enter keyword' 
+                            autoCapitalize='none' >
+                </TextInput>
+                
                 <TouchableHighlight 
                     onPress={this.onSearchPressed.bind(this)} 
                     style={styles.button}>

@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, ActivityIndicator } from 'react-native';
+import { View, Text, ListView, TouchableHighlight, ActivityIndicator } from 'react-native';
 import styles from './style';
 
 class SearchResult extends Component {
     constructor(props) {
         super(props);
 
+        let ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 != r2
+        });
+
         this.state = {
             showProgress: true,
-            searchQuery: props.searchQuery
+            searchQuery: props.searchQuery,
+            datasource: ds
         }
     }
 
@@ -18,7 +23,45 @@ class SearchResult extends Component {
     }
 
     doSearch(){
-        console.log('search for keyword:', this.state.searchQuery);
+        //console.log('search for keyword:', this.state.searchQuery);
+        let url = 'https://api.github.com/search/repositories?q=' + encodeURIComponent(this.state.searchQuery);
+        fetch(url)
+        .then((response) => { 
+            return response.json()
+        })
+        .then((data) => {
+            this.setState({
+                repositories: data.repositories,
+                datasource: this.state.datasource.cloneWithRows(data.items)
+            });
+        })
+        .finally(() => {
+            this.setState({ showProgress: false });
+        });
+    }
+
+    pressRow(rowData) {
+
+    }
+
+    renderRow(rowData){
+        return (
+            <TouchableHighlight onPress={() => this.pressRow(rowData)} underlayColor='#ddd'>
+                <View style={{ 
+                    flex: 1, 
+                    flexDirection: 'row', 
+                    padding: 20,
+                    alignItems: 'center', 
+                    borderColor: '#D7D7D7',
+                    borderBottomWidth: 1
+                }}>
+                    <View style={{ paddingLeft: 20 }}>
+                        <Text style={{ backgroundColor: '#FFF' }}>
+                        </Text>
+                    </View>
+                </View>
+            </TouchableHighlight>
+        )
     }
 
     render(){
@@ -31,8 +74,8 @@ class SearchResult extends Component {
         }
         
         return (
-            <View style={styles.searchContainer}>
-                Search Result
+            <View style={{ flex: 1, justifyContent: 'flex-start' }}>
+                <ListView dataSource={this.state.datasource} renderRow={this.renderRow.bind(this)} />
             </View>
         );
     }
