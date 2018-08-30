@@ -43,7 +43,7 @@ class Feed extends Component {
             })
             .then((response) => response.json())
             .then((data) => {
-                let feedItems = _.filter(data, (ev) => { return ev.type == 'PushEvent'});
+                let feedItems = _.filter(data, (ev) => { return ev.type == 'PushEvent' || ev.type == 'PullRequestEvent'});
                 this.setState({ 
                     dataSource: this.state.dataSource.cloneWithRows(feedItems),
                     showProgress: false
@@ -76,7 +76,7 @@ class Feed extends Component {
                             <Text style={{ fontWeight: '600' }}>{rowData.actor.login}</Text> push to 
                         </Text>
                         <Text style={{ backgroundColor: '#FFF' }}>
-                            {rowData.payload.ref.replace('refs/heads/','')}
+                            {rowData.payload.ref ? rowData.payload.ref.replace('refs/heads/','') : ''}
                         </Text>
                         <Text style={{ backgroundColor: '#FFF' }}>
                             at <Text style={{ fontWeight: '600' }}>{rowData.repo.name}</Text>

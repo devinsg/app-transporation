@@ -22,15 +22,14 @@ class Container extends Component {
                     title='Feed' 
                     selected={this.state.selectedTab == 'feed'} 
                     onPress={() => this.setState({selectedTab: 'feed'})}>
-                        <NavigatorIOS style={{ flex: 1 }} initialRoute={{ component: Feed, title: 'Feed' }}></NavigatorIOS>
-                        {/* <Feed /> */}
                         {/* <Welcome authInfo={authInfo} onLogout={onLogout}/> */}
+                        <NavigatorIOS style={{ flex: 1 }} initialRoute={{ component: Feed, title: 'Feed' }}></NavigatorIOS>
                 </TabBarIOS.Item>
                 <TabBarIOS.Item 
-                    title='Search' 
+                    title='Search'
                     selected={this.state.selectedTab == 'search'} 
                     onPress={() => this.setState({selectedTab: 'search'})}>
-                        <Search />
+                        <NavigatorIOS style={{ flex: 1 }} initialRoute={{ component: Search, title: 'Search' }}></NavigatorIOS>
                 </TabBarIOS.Item>
             </TabBarIOS>
         )
