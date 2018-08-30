@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, ListView, TouchableHighlight, ActivityIndicator } from 'react-native';
+import { View, Text, ListView, Image, TouchableHighlight, ActivityIndicator } from 'react-native';
 import styles from './style';
+
+const logo = require('../../images/master.png');
 
 class SearchResult extends Component {
     constructor(props) {
@@ -40,27 +42,31 @@ class SearchResult extends Component {
         });
     }
 
-    pressRow(rowData) {
-
-    }
-
     renderRow(rowData){
         return (
-            <TouchableHighlight onPress={() => this.pressRow(rowData)} underlayColor='#ddd'>
-                <View style={{ 
-                    flex: 1, 
-                    flexDirection: 'row', 
-                    padding: 20,
-                    alignItems: 'center', 
-                    borderColor: '#D7D7D7',
-                    borderBottomWidth: 1
+            <View style={{ padding: 20, borderColor: '#D7D7D7', borderBottomWidth: 1, backgroundColor: '#fff' }}>
+                <Text style={{ fontSize: 20, fontWeight: '600' }}>{rowData.full_name}</Text>
+                <View style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    marginTop: 20,
+                    marginBottom: 20
                 }}>
-                    <View style={{ paddingLeft: 20 }}>
-                        <Text style={{ backgroundColor: '#FFF' }}>
-                        </Text>
+                    <View style={styles.repoCell}>
+                        <Image source={logo} style={styles.repoCellIcon}></Image>
+                        <Text style={styles.repoCellLabel}>{rowData.stargazers_count}</Text>
+                    </View>
+                    <View style={styles.repoCell}>
+                        <Image source={logo} style={styles.repoCellIcon}></Image>
+                        <Text style={styles.repoCellLabel}>{rowData.forks}</Text>
+                    </View>
+                    <View style={styles.repoCell}>
+                        <Image source={logo} style={styles.repoCellIcon}></Image>
+                        <Text style={styles.repoCellLabel}>{rowData.open_issues}</Text>
                     </View>
                 </View>
-            </TouchableHighlight>
+            </View>
         )
     }
 

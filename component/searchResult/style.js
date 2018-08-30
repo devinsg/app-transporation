@@ -5,8 +5,18 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F5FCFF',
         alignItems: 'center',
-        //paddingTop: 80
         justifyContent: 'center'
+    },
+    repoCell: {
+        width: 50,
+        alignItems: 'center'
+    },
+    repoCellIcon: {
+        width: 20,
+        height: 20
+    },
+    repoCellLabel: {
+        textAlign: 'center'
     }
 });
 
