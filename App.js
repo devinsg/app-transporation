@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
+import cu from './lib/commonUtil';
 import Login from './component/login';
+import UnknowException from './component/unknowException';
 import AuthService from './services/authService';
 import styles from './Styles';
 import Container from './Container';
@@ -19,9 +21,11 @@ class App extends Component{
 
   componentDidMount(){
     AuthService.getAuthInfo((error, authInfo) => {
+      if(error) throw error;
+
       this.setState({
         checkingAuth: false,
-        isLoggedIn: (authInfo == null || authInfo == undefined) ? false : true,
+        isLoggedIn: (!cu.isBlank(authInfo) && !cu.isBlank(authInfo.user)) ? true : false,
         authInfo: authInfo
       })
     });
@@ -45,14 +49,19 @@ class App extends Component{
         </View>
       );
     }
-    else if(isLoggedIn == null || !isLoggedIn) {
+    else if(!isLoggedIn) {
       return (
         <Login onLogin={this.onLogin} />
       );
     }
-    else if(isLoggedIn) {
+    else if(isLoggedIn && authInfo && authInfo.user) {
       return (
         <Container authInfo={authInfo} onLogout={this.onLogout} />
+      );
+    }
+    else {
+      return (
+        <UnknowException />
       );
     }
   }

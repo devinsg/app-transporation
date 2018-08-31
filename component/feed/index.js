@@ -36,8 +36,13 @@ class Feed extends Component {
     }
 
     fetchFeed(){
-        authService.getAuthInfo((err, authInfo) => {
-            let url = 'https://api.github.com/users/' + authInfo.user.login + '/received_events';
+        authService.getAuthInfo((error, authInfo) => {
+            if(error) 
+                throw error;
+
+            let login = authInfo.user ? authInfo.user.login : '';
+            let url = 'https://api.github.com/users/' + login + '/received_events';
+            
             fetch(url, {
                 headers: authInfo.header
             })
@@ -49,6 +54,10 @@ class Feed extends Component {
                     showProgress: false
                 });
             })
+            .catch((error) => {
+                console.log(error);
+                throw error;
+            });
         });
     }
 
@@ -103,7 +112,7 @@ class Feed extends Component {
                 //alignSelf: 'center',
                 paddingTop: 80
             }}>
-                <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this)} />
+                <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this)} enableEmptySections={true} />
             </View>
         );
     }
