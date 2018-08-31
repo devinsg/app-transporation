@@ -112,7 +112,7 @@ class Feed extends Component {
                 //alignSelf: 'center',
                 paddingTop: 80
             }}>
-                <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this)} />
+                <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this)} enableEmptySections={true} />
             </View>
         );
     }
