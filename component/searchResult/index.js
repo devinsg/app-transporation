@@ -80,7 +80,7 @@ class SearchResult extends Component {
         }
         
         return (
-            <View style={{ flex: 1, justifyContent: 'flex-start' }}>
+            <View style={{ flex: 1, justifyContent: 'flex-start', paddingTop: 60 }}>
                 <ListView dataSource={this.state.datasource} renderRow={this.renderRow.bind(this)} />
             </View>
         );
