@@ -1,17 +1,8 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {
-  AppRegistry,
-  Text,
-  View,
-  NavigatorIOS,
-  useWindowDimensions,
-} from 'react-native';
+import {View, useWindowDimensions} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
-import styles from './styles';
-import Feed from '../feed';
-import Search from '../search';
-import Welcome from '../welcome';
 import Sample from '../sample';
 
 const FirstRoute = () => <View style={{flex: 1, backgroundColor: '#ff4081'}} />;
