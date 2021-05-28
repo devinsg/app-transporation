@@ -28,7 +28,7 @@
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
     "redux-form": "^8.3.7",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
     "react-native-gesture-handler": "^1.10.3",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.2",
