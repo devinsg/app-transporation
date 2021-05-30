@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import {Provider} from 'react-redux';
 import { AppRegistry, Text, View, NavigatorIOS, useWindowDimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view'; 
 import App from '../app';
+
+import configureStore from '../../store';
+const store = new configureStore();
 
 const FirstRoute = () => (
   <View style={{ flex: 1, backgroundColor: '#ff4081' }} />

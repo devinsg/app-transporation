@@ -1,18 +1,11 @@
-import {
-    PANEL_VIEW, SELECTED_PANEL_VIEW,
+import {    
     INCREMENT, DECREMENT,
-    START_LOADING, STOP_LOADING,
-    GET_ORDER_PENDING, GET_ORDER_COMPLETED, 
-    GET_ORDER_DETAIL_BY_ID, SET_ORDER_DETAIL_ITEM_CHECKED
-} from '../utils/constants';
+    START_LOADING, STOP_LOADING,    
+} from '../utils/common';
 
 export const INITIAL_STATE = {
     count: 0,
-    isLoading: false,
-    selectedView: PANEL_VIEW.PENDING,
-    pendingOrders: [],
-    completedOrders: [],
-    orderDetail: {}
+    isLoading: false,    
 };
 
 const orderReducer = function(state = INITIAL_STATE, { type, payload }) {
@@ -26,35 +19,7 @@ const orderReducer = function(state = INITIAL_STATE, { type, payload }) {
         return {
             ...state,
             isLoading: false
-        }
-    case SELECTED_PANEL_VIEW:
-        return {
-            ...state,
-            selectedView: payload
-        }
-    case GET_ORDER_PENDING:
-        return {
-            ...state, 
-            pendingOrders: payload
-        };
-    case GET_ORDER_COMPLETED:
-        return {
-            ...state,
-            completedOrders: payload
-        };
-    case GET_ORDER_DETAIL_BY_ID:
-        return {
-            ...state,
-            orderDetail: payload
-        };
-    case SET_ORDER_DETAIL_ITEM_CHECKED:
-        return {
-            ...state,
-            orderDetail: {
-                ...state.orderDetail,
-                products: payload
-            }
-        }
+        }    
     case INCREMENT:
         return {
             ...state,
