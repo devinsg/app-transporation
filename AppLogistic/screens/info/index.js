@@ -3,14 +3,8 @@ import PropTypes from 'prop-types';
 import { AppRegistry, Text, View, Button, NavigatorIOS, useWindowDimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view'; 
 import styles from './styles';
-
-const FirstRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#ff4081' }} />
-);
-  
-const SecondRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
-);
+import Screen01 from './screen01';
+import Screen02 from './screen02';
 
 const Info = ({title, authInfo, onLogout}) => {
   return (
@@ -37,8 +31,8 @@ const TabViewExample = function() {
   ]);
 
   const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute
+    first: Screen01,
+    second: Screen02
   });
   
   return (
