@@ -1,81 +1,57 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import {Provider} from 'react-redux';
-import { AppRegistry, Text, View, NavigatorIOS, useWindowDimensions } from 'react-native';
-import { TabView, SceneMap } from 'react-native-tab-view'; 
+import { AppRegistry, Text, View, Button } from 'react-native';
+
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+const Stack = createStackNavigator();
+
 import App from '../app';
+import Welcome from '../info';
 
 import configureStore from '../../store';
 const store = new configureStore();
 
-const FirstRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#ff4081' }} />
-);
-  
-const SecondRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
-);
-
-const TabViewExample = function() {
-  const layout = useWindowDimensions();
-
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: 'first', title: 'First' },
-    { key: 'second', title: 'Second' },
-    { key: 'third', title: 'Third' },
-  ]);
-
-  const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute,
-    third: App,
-  });
-  
-  return (
-    <TabView
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      initialLayout={{ width: layout.width }}
-    />
+function HomeScreen({navigation}) {
+  return (    
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>      
+      <Text>Click to App</Text>
+      <Button title="App" onPress={() => navigation.navigate('App')} />
+      <Text>Click to Sample</Text>
+      <Button title="Welcome" onPress={() => navigation.navigate('Welcome')} />
+    </View>
   );
 };
 
-class Container extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-        selectedTab: 'feed'
-    }
-  }
+const Main = () => {  
+  return (
+    <>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}              
+              options={{
+                title: 'Home',
+                headerTitleAlign: "center"
+              }}
+            />
+            <Stack.Screen
+              name="Welcome"
+              component={Welcome}
+              options={{title: 'Welcome'}}
+            />           
+            <Stack.Screen
+              name="App"
+              component={App}
+              options={{title: 'App'}}
+          />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    </>    
+  )  
+};
 
-  render() {
-    let { authInfo, onLogout } = this.props;
-    return (
-        <TabViewExample />
-        // <TabBarIOS style={styles.container}>
-        //     <TabBarIOS.Item 
-        //         title='Feed' 
-        //         selected={this.state.selectedTab == 'feed'} 
-        //         onPress={() => this.setState({selectedTab: 'feed'})}>
-        //             {/* <Welcome authInfo={authInfo} onLogout={onLogout}/> */}
-        //             <NavigatorIOS style={{ flex: 1 }} initialRoute={{ component: Feed, title: 'Feed' }}></NavigatorIOS>
-        //     </TabBarIOS.Item>
-        //     <TabBarIOS.Item 
-        //         title='Search'
-        //         selected={this.state.selectedTab == 'search'} 
-        //         onPress={() => this.setState({selectedTab: 'search'})}>
-        //             <NavigatorIOS style={{ flex: 1 }} initialRoute={{ component: Search, title: 'Search' }}></NavigatorIOS>
-        //     </TabBarIOS.Item>
-        // </TabBarIOS>
-    )
-  }
-}
-
-Container.propTypes = {
-  authInfo: PropTypes.object,
-  onLogout: PropTypes.func
-}
-
-export default Container;
+export default Main;
