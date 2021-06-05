@@ -41,7 +41,8 @@
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.15.0",
     "react-native-svg": "^12.1.0",
-    "react-native-webview": "^11.4.4"
+    "react-native-webview": "^11.4.4",
+    "react-native-pager-view": "^5.1.9"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -52,9 +53,6 @@
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.64.0",
     "react-native-clean-project": "^3.6.4",
-    "react-native-gesture-handler": "^1.10.3",
-    "react-native-pager-view": "^5.1.9",
-    "react-native-reanimated": "^2.1.0",
     "react-test-renderer": "17.0.1"
   },
   "jest": {
