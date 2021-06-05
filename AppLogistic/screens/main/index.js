@@ -1,74 +1,54 @@
-import React, { Component } from 'react';
-// import { View, ActivityIndicator } from 'react-native';
-// import cu from '../../utils/common';
-// import Login from '../login';
-// import UnknowException from '../unknowException';
-// import AuthService from '../../services/authService';
-// import styles from './styles';
-import Container from './container';
+import React from 'react';
+import {Provider} from 'react-redux';
+import {Text, View, Button} from 'react-native';
 
-class Main extends Component{
-  constructor(props){
-    super(props);
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+const Stack = createStackNavigator();
 
-    this.state = {
-      isLoggedIn: false,
-      checkingAuth: true
-    }
-    this.onLogin = this.onLogin.bind(this);
-    this.onLogout = this.onLogout.bind(this);
-  }
+import App from '../app';
+import Welcome from '../info';
 
-  componentDidMount(){
-    // AuthService.getAuthInfo((error, authInfo) => {
-    //   if(error) throw error;
+import configureStore from '../../store';
+const store = new configureStore();
 
-    //   this.setState({
-    //     checkingAuth: false,
-    //     isLoggedIn: (!cu.isBlank(authInfo) && !cu.isBlank(authInfo.user)) ? true : false,
-    //     authInfo: authInfo
-    //   })
-    // });
-  }
-  
-  onLogin(){
-    this.setState({ isLoggedIn: true });
-  }
-
-  onLogout(){
-    this.setState({ isLoggedIn: false });
-  }
-
-  render(){
-    let { isLoggedIn, checkingAuth, authInfo } = this.state;
-    return (
-      <Container authInfo={authInfo} onLogout={this.onLogout} />
-    );
-
-    // if(checkingAuth) {
-    //   return (
-    //     <View style={styles.container}>
-    //       <ActivityIndicator animating={true} size='large' style={styles.loader}>
-    //       </ActivityIndicator>
-    //     </View>
-    //   );
-    // }
-    // else if(!isLoggedIn) {
-    //   return (
-    //     <Login onLogin={this.onLogin} />
-    //   );
-    // }
-    // else if(isLoggedIn && authInfo && authInfo.user) {
-    //   return (
-    //     <Container authInfo={authInfo} onLogout={this.onLogout} />
-    //   );
-    // }
-    // else {
-    //   return (
-    //     <UnknowException />
-    //   );
-    // }
-  }
+function HomeScreen({navigation}) {
+  return (
+    // eslint-disable-next-line react-native/no-inline-styles
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>Click to Logistic App</Text>
+      <Button title="App" onPress={() => navigation.navigate('App')} />
+      <Text>Click to Sample</Text>
+      <Button title="Welcome" onPress={() => navigation.navigate('Welcome')} />
+    </View>
+  );
 }
+
+const Main = () => {
+  return (
+    <>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                title: 'Home',
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="Welcome"
+              component={Welcome}
+              options={{title: 'Welcome'}}
+            />
+            <Stack.Screen name="App" component={App} options={{title: 'App'}} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    </>
+  );
+};
 
 export default Main;
