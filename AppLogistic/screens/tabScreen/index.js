@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { AppRegistry, Text, View, Button, NavigatorIOS, useWindowDimensions } from 'react-native';
+import { Text, View, useWindowDimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view'; 
 import styles from './styles';
 import Screen01 from './screen01';

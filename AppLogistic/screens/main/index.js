@@ -6,8 +6,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
-import App from '../app';
-import Welcome from '../info';
+import Welcome from '../welcome';
+import Info from '../info';
 
 import configureStore from '../../store';
 const store = new configureStore();
@@ -17,9 +17,9 @@ function HomeScreen({navigation}) {
     // eslint-disable-next-line react-native/no-inline-styles
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Text>Click to Logistic App</Text>
-      <Button title="App" onPress={() => navigation.navigate('App')} />
-      <Text>Click to Sample</Text>
       <Button title="Welcome" onPress={() => navigation.navigate('Welcome')} />
+      <Text>Click to Info</Text>
+      <Button title="Info" onPress={() => navigation.navigate('Info')} />
     </View>
   );
 }
@@ -43,7 +43,10 @@ const Main = () => {
               component={Welcome}
               options={{title: 'Welcome'}}
             />
-            <Stack.Screen name="App" component={App} options={{title: 'App'}} />
+            <Stack.Screen 
+              name="Info" 
+              component={Info} 
+              options={{title: 'Info'}} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
