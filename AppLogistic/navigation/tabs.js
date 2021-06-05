@@ -6,12 +6,16 @@ import {
   BottomTabBar,
 } from '@react-navigation/bottom-tabs';
 
+import Svg, { Path } from 'react-native-svg';
+//import { isIphoneX } from 'react-native-iphone-x-helper';
+
 import {Home, Order} from '../screens';
 import {COLORS, icons} from '../constants';
 
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
+  let logo = require('../assets/icons/cutlery.png');
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -32,7 +36,7 @@ const Tabs = () => {
         options={{
           tabBarIcon: ({focused}) => {
             <Image
-              source={icons.cutlery}
+              source={logo}
               resizeMode="contain"
               style={{
                 width: 25,
