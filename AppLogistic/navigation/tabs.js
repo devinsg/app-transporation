@@ -11,7 +11,7 @@ const Tabs = () => {
     return (
         <Tab.Navigator
             tabBarOptions={{
-                showLabel: false
+                showLabel: true
             }}>
             <Tab.Screen
                 name='Home'
