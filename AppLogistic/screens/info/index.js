@@ -1,33 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { AppRegistry, Text, View, Button, NavigatorIOS, useWindowDimensions } from 'react-native';
+import { Text, View, useWindowDimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view'; 
-import styles from './styles';
+import Screen01 from './screen01';
+import Screen02 from './screen02';
 
-const FirstRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#ff4081' }} />
-);
-  
-const SecondRoute = () => (
-  <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
-);
-
-const Info = ({title, authInfo, onLogout}) => {
-  return (
-    <View style={styles.container}>
-      <Text>Welcome {authInfo.user ? authInfo.user.name : ''}</Text>
-      <Text onPress={() => onLogout()}>Logout</Text>
-    </View>
-  );  
-};
-
-Info.propTypes = {
-  title: PropTypes.string,
-  authInfo: PropTypes.object,
-  onLogout: PropTypes.func,
-};
-
-const TabViewExample = function() {
+const Container = function() {
   const layout = useWindowDimensions();
 
   const [index, setIndex] = React.useState(0);
@@ -37,8 +15,8 @@ const TabViewExample = function() {
   ]);
 
   const renderScene = SceneMap({
-    first: FirstRoute,
-    second: SecondRoute
+    first: Screen01,
+    second: Screen02
   });
   
   return (
@@ -51,4 +29,4 @@ const TabViewExample = function() {
   );
 };
 
-export default TabViewExample;
+export default Container;
