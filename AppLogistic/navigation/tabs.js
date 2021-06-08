@@ -102,7 +102,7 @@ const Tabs = () => {
         name="Home"
         component={Home}
         options={{
-          tabBarIcon: ({focused}) => {
+          tabBarIcon: ({focused}) => (
             <Image
               source={icons.cutlery}
               resizeMode="contain"
@@ -111,8 +111,8 @@ const Tabs = () => {
                 height: 25,
                 tintColor: focused ? COLORS.primary : COLORS.secondary,
               }}
-            />;
-          },
+            />
+          ),
           tabBarButton: props => <TabBarCustomButton {...props} />,
         }}
       />
@@ -120,7 +120,7 @@ const Tabs = () => {
         name="Search"
         component={Home}
         options={{
-          tabBarIcon: ({focused}) => {
+          tabBarIcon: ({focused}) => (
             <Image
               source={icons.search}
               resizeMode="contain"
@@ -129,15 +129,16 @@ const Tabs = () => {
                 height: 25,
                 tintColor: focused ? COLORS.primary : COLORS.secondary,
               }}
-            />;
-          },
+            />
+          ),
+          tabBarButton: props => <TabBarCustomButton {...props} />,
         }}
       />
       <Tab.Screen
         name="Like"
         component={Home}
         options={{
-          tabBarIcon: ({focused}) => {
+          tabBarIcon: ({focused}) => (
             <Image
               source={icons.like}
               resizeMode="contain"
@@ -146,15 +147,16 @@ const Tabs = () => {
                 height: 25,
                 tintColor: focused ? COLORS.primary : COLORS.secondary,
               }}
-            />;
-          },
+            />
+          ),
+          tabBarButton: props => <TabBarCustomButton {...props} />,
         }}
       />
       <Tab.Screen
         name="User"
         component={Home}
         options={{
-          tabBarIcon: ({focused}) => {
+          tabBarIcon: ({focused}) => (
             <Image
               source={icons.user}
               resizeMode="contain"
@@ -163,8 +165,9 @@ const Tabs = () => {
                 height: 25,
                 tintColor: focused ? COLORS.primary : COLORS.secondary,
               }}
-            />;
-          },
+            />
+          ),
+          tabBarButton: props => <TabBarCustomButton {...props} />,
         }}
       />
     </Tab.Navigator>
