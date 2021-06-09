@@ -7,6 +7,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import {COLORS, FONTS, icons, SIZES} from '../../constants';
 import deliveryService from '../../services/deliveryService';
@@ -55,6 +56,66 @@ const Header = () => {
   );
 };
 
+const MainCategory = ({categories}) => {
+  const renderItem = ({item}) => {
+    return (
+      <TouchableOpacity
+        style={{
+          padding: SIZES.padding,
+          paddingBottom: SIZES.padding * 2,
+          backgroundColor: COLORS.primary,
+          borderRadius: SIZES.radius,
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginRight: SIZES.padding,
+          ...styles.shadow,
+        }}>
+        <View
+          style={{
+            width: 50,
+            height: 50,
+            borderRadius: 25,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: COLORS.white,
+          }}>
+          <Image
+            source={item.icon}
+            resizeMode="contain"
+            style={{
+              width: 30,
+              height: 30,
+            }}
+          />
+          <Text
+            style={{
+              marginTop: SIZES.padding,
+              color: COLORS.white,
+              ...FONTS.body5,
+            }}>
+            {item.name}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+  return (
+    <View style={{padding: SIZES.padding * 2}}>
+      <Text style={{...FONTS.h1}}>Main</Text>
+      <Text style={{...FONTS.h1}}>Categories</Text>
+
+      <FlatList
+        data={categories}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={item => `${item.id}`}
+        renderItem={renderItem}
+        contentContainerStyle={{paddingVertical: SIZES.padding * 2}}
+      />
+    </View>
+  );
+};
+
 const Home = () => {
   const initialCurrentLocation = {
     streetName: 'Kuching',
@@ -87,6 +148,7 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
+      <MainCategory categories={categories} />
     </SafeAreaView>
   );
 };
